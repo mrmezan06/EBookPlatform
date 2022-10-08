@@ -1,0 +1,95 @@
+.book-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+  padding: 0 5px;
+}
+
+.book {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+  width: 1014px;
+  border: 1px solid teal;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.book:nth-child(2n) {
+  flex-direction: row-reverse;
+}
+
+.cover {
+  height: 480px;
+  background-size: cover;
+}
+
+img {
+  width: 320px;
+  height: 480px;
+  flex: 2;
+  object-fit: cover;
+}
+
+.bookInfo {
+  height: 480px;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+}
+
+.bookTitle {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.bookDesc {
+  font-size: 18px;
+  text-align: center;
+}
+
+.bookAuthor {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.bookAuthor span {
+  font-weight: bold;
+}
+
+.bookUploader {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.bookUploader span {
+  font-weight: bold;
+}
+
+.bookButtons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.bookLink {
+  text-decoration: none;
+  color: white;
+  background-color: teal;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+}
+
+.bookLink:hover {
+  background-color: #00bfa6;
+}

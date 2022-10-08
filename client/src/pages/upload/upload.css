@@ -1,0 +1,85 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 1024px;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 1004px;
+}
+
+.book-name {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.book-name label {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.book-name input {
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.book-name input:focus {
+  outline: none;
+  border: 2px solid teal;
+}
+
+.book-name input:required {
+  border: 2px solid teal;
+}
+.book-name input:invalid {
+  border: 2px solid red;
+}
+
+.book-name textarea {
+  height: 180px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 10px;
+  font-size: 16px;
+}
+
+.book-name textarea:focus {
+  outline: none;
+  border: 2px solid teal;
+}
+.book-name textarea:required {
+  border: 2px solid teal;
+}
+.book-name textarea:invalid {
+  border: 2px solid red;
+}
+.book-submit {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.book-submit button {
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: teal;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+}

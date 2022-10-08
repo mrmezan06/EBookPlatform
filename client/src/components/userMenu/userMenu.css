@@ -1,0 +1,42 @@
+.userMenu {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.menuIcon {
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.menuIcon:hover {
+  color: lightgreen;
+}
+
+.menuItems {
+  position: absolute;
+  top: 60px;
+  left: -60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: teal;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 10px 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.userlink {
+  font-size: 24px;
+  font-weight: 200;
+  text-decoration: none;
+  color: white;
+  border: none;
+  background-color: teal;
+  cursor: pointer;
+}
