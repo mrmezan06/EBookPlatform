@@ -12,6 +12,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import "./search.css";
 import UserMenu from "../../components/userMenu/UserMenu";
 import { Pagination, Box } from "@mui/material";
+import { formatDistanceToNow, parseISO } from "date-fns";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -113,6 +114,12 @@ const Search = () => {
                 </div>
                 <div className="bookUploader">
                   Uploader: <span>{book.user.name}</span>
+                </div>
+                <div className="agotime">
+                  Uploaded :{" "}
+                  <span>
+                    {formatDistanceToNow(parseISO(book.createdAt))} ago
+                  </span>
                 </div>
                 <div className="bookButtons">
                   <a className="bookLink" href={book.bookUrl}>

@@ -47,29 +47,35 @@ img {
 .bookTitle {
   font-size: 30px;
   font-weight: bold;
+  color: rgb(2, 85, 85);
 }
 
 .bookDesc {
   font-size: 18px;
   text-align: center;
+  color: rgb(2, 85, 85);
 }
 
 .bookAuthor {
   font-size: 20px;
   font-weight: 300;
+  color: rgb(2, 85, 85);
 }
 
 .bookAuthor span {
   font-weight: bold;
+  color: teal;
 }
 
 .bookUploader {
   font-size: 20px;
   font-weight: 300;
+  color: rgb(2, 85, 85);
 }
 
 .bookUploader span {
   font-weight: bold;
+  color: teal;
 }
 
 .bookButtons {
@@ -92,4 +98,15 @@ img {
 
 .bookLink:hover {
   background-color: #00bfa6;
+}
+
+.agotime {
+  font-size: 18px;
+  font-weight: 300;
+  color: rgb(2, 85, 85);
+}
+
+.agotime span {
+  color: teal;
+  font-weight: bold;
 }
