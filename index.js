@@ -10,11 +10,7 @@ dotenv.config();
 
 const app = express();
 
-var corsOptions = {
-  origin: "*",
-};
-
-app.use(cors(corsOptions));
+app.use(cors({ origin: "https://ocean-book.herokuapp.com/" }));
 
 app.use(express.json());
 app.use(cokieParser());
