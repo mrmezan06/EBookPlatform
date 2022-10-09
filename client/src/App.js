@@ -8,7 +8,7 @@ import Login from "./pages/login/Login";
 import Upload from "./pages/upload/Upload";
 import Registration from "./pages/registration/Registration";
 import Search from "./pages/search/Search";
-import Dashboard from "./pages/dashboard/dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
 export default function App() {
   return (
     <div className="app">
