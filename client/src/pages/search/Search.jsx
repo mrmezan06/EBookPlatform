@@ -63,6 +63,12 @@ const Search = () => {
       </div>
       <div className="book-container">
         <Toaster />
+        {/* if books.length===0 then shows No books found */}
+        {books.length === 0 && (
+          <div className="no-books">
+            <h1>No Books Found!</h1>
+          </div>
+        )}
         {books?.map((book) => (
           <div className="book" key={book._id}>
             <div className="cover">
