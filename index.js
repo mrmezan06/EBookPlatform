@@ -11,8 +11,7 @@ dotenv.config();
 const app = express();
 
 var corsOptions = {
-  origin: true,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
