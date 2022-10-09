@@ -40,9 +40,6 @@ const UserMenu = () => {
       {/* Menu Item */}
       {showMenu && (
         <div className="menuItems">
-          <Link to="/search" className="userlink">
-            Search
-          </Link>
           <Link
             to={loggedIn ? `/upload/${userId}` : "/login"}
             className="userlink"
@@ -50,9 +47,14 @@ const UserMenu = () => {
             Upload
           </Link>
           {loggedIn ? (
-            <Link to={`/profile/${userId}`} className="userlink">
-              Profile
-            </Link>
+            <>
+              <Link to={`/dashboard/${userId}`} className="userlink">
+                Dashboard
+              </Link>
+              <Link to={`/profile/${userId}`} className="userlink">
+                Profile
+              </Link>
+            </>
           ) : (
             <Link to="/login" className="userlink">
               Login

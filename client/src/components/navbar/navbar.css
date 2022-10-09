@@ -31,6 +31,10 @@
   flex: 1;
 }
 
+.link:hover {
+  color: lightgreen;
+}
+
 .userLogo {
   flex: 1;
 }

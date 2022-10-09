@@ -1,13 +1,16 @@
 import { render } from "react-dom";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Profile from "./pages/profile/Profile";
-import Login from "./pages/login/Login";
-import Upload from "./pages/upload/Upload";
-import Registration from "./pages/registration/Registration";
+import { BrowserRouter } from "react-router-dom";
+
 import App from "./App";
-import Search from "./pages/search/Search";
 
 const rootElement = document.getElementById("root");
+render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  rootElement
+);
+/* const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <Routes>
@@ -20,4 +23,4 @@ render(
     </Routes>
   </BrowserRouter>,
   rootElement
-);
+); */

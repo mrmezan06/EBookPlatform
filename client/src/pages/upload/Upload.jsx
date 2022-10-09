@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../../components/navbar/Navbar";
-import Footer from "../../components/footer/Footer";
 import "./upload.css";
 
 import axios from "axios";
@@ -45,103 +43,99 @@ const Upload = () => {
       });
   };
   return (
-    <div className="app">
-      <Navbar />
-      <div className="main-container">
-        <Toaster />
-        <h1>Upload Books</h1>
-        <div className="form">
-          <div className="book-name">
-            <label htmlFor="name" className="name">
-              Book name
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Title of the book"
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
+    <>
+      <h1>Upload Books</h1>
+      <Toaster />
+      <div className="form">
+        <div className="book-name">
+          <label htmlFor="name" className="name">
+            Book name
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Title of the book"
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
 
-          <div className="book-name">
-            <label htmlFor="author" className="author">
-              Author
-            </label>
-            <input
-              type="text"
-              name="author"
-              id="author"
-              placeholder="Author of the book"
-              onChange={(e) => setAuthor(e.target.value)}
-              required
-            />
-          </div>
-          <div className="book-name">
-            <label htmlFor="description" className="description">
-              Description
-            </label>
-            <textarea
-              name="description"
-              id="description"
-              cols="10"
-              placeholder="Description of the book"
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            ></textarea>
-          </div>
-          <div className="book-name">
-            <label htmlFor="category" className="category">
-              Category
-            </label>
-            <input
-              type="text"
-              name="category"
-              id="category"
-              placeholder="Category of the book. Seperated by SPACE(' ') Eg: Fiction Non-Fiction, etc."
-              onChange={(e) => {
-                const cat = e.target.value;
-                // split by ,
-                const catArr = cat.split(" ");
-                setCategory(catArr);
-              }}
-              required
-            />
-          </div>
-          <div className="book-name">
-            <label htmlFor="image" className="image">
-              Image URL
-            </label>
-            <input
-              type="text"
-              name="image"
-              id="image"
-              placeholder="Image URL of the book"
-              onChange={(e) => setImage(e.target.value)}
-              required
-            />
-          </div>
-          <div className="book-name">
-            <label htmlFor="book">Book URL</label>
-            <input
-              type="text"
-              name="book"
-              id="book"
-              placeholder="Book URL of the book"
-              onChange={(e) => setBookUrl(e.target.value)}
-              required
-            />
-          </div>
-          <div className="book-submit">
-            <button className="submit" onClick={() => handleUpload()}>
-              Submit
-            </button>
-          </div>
+        <div className="book-name">
+          <label htmlFor="author" className="author">
+            Author
+          </label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            placeholder="Author of the book"
+            onChange={(e) => setAuthor(e.target.value)}
+            required
+          />
+        </div>
+        <div className="book-name">
+          <label htmlFor="description" className="description">
+            Description
+          </label>
+          <textarea
+            name="description"
+            id="description"
+            cols="10"
+            placeholder="Description of the book"
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          ></textarea>
+        </div>
+        <div className="book-name">
+          <label htmlFor="category" className="category">
+            Category
+          </label>
+          <input
+            type="text"
+            name="category"
+            id="category"
+            placeholder="Category of the book. Seperated by SPACE(' ') Eg: Fiction Non-Fiction, etc."
+            onChange={(e) => {
+              const cat = e.target.value;
+              // split by ,
+              const catArr = cat.split(" ");
+              setCategory(catArr);
+            }}
+            required
+          />
+        </div>
+        <div className="book-name">
+          <label htmlFor="image" className="image">
+            Image URL
+          </label>
+          <input
+            type="text"
+            name="image"
+            id="image"
+            placeholder="Image URL of the book"
+            onChange={(e) => setImage(e.target.value)}
+            required
+          />
+        </div>
+        <div className="book-name">
+          <label htmlFor="book">Book URL</label>
+          <input
+            type="text"
+            name="book"
+            id="book"
+            placeholder="Book URL of the book"
+            onChange={(e) => setBookUrl(e.target.value)}
+            required
+          />
+        </div>
+        <div className="book-submit">
+          <button className="submit" onClick={() => handleUpload()}>
+            Submit
+          </button>
         </div>
       </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 
