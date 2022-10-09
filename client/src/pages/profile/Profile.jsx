@@ -66,11 +66,10 @@ const Profile = () => {
       });
   };
 
-  fetchData(userId);
-  /*   useEffect(() => {
+  useEffect(() => {
     fetchData(userId);
     // eslint-disable-next-line
-  }, [userId]); */
+  }, [userId]);
 
   return (
     <>
