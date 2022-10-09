@@ -84,12 +84,12 @@ const Dashboard = () => {
     {
       field: "author",
       headerName: "Author",
-      width: 170,
+      width: 160,
     },
     {
       field: "uploader",
       headerName: "Uploader",
-      width: 170,
+      width: 150,
     },
     {
       field: "edit",
@@ -173,7 +173,7 @@ const Dashboard = () => {
         <DataGrid
           rows={rows}
           columns={columnsAdmin}
-          pageSize={pageSize}
+          pageSize={9}
           rowsPerPageOptions={[pageSize]}
         />
       </Box>
