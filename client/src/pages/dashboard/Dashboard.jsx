@@ -162,8 +162,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line
-  }, [userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="dashboard">
