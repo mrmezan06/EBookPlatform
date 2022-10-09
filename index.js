@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 var corsOptions = {
-  origin: "https://ocean-book.herokuapp.com",
+  origin: true,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
