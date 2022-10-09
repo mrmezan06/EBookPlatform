@@ -22,11 +22,11 @@ const Navbar = () => {
         <Link to="/?cat=programming" className="link">
           Programming
         </Link>
-        <Link to="/?cat=science" className="link">
-          Science
+        <Link to="/?cat=hacking" className="link">
+          Hacking
         </Link>
-        <Link to="/?cat=math" className="link">
-          Math
+        <Link to="/?cat=networking" className="link">
+          Networking
         </Link>
         <Link to="/?cat=history" className="link">
           History
