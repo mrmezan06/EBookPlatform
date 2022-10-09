@@ -31,7 +31,6 @@ const Search = () => {
         .then((res) => {
           setBooks(res.data.books);
           setPageSize(res.data.pageCount);
-
           // Fetch User Details
         })
         .catch((err) => {

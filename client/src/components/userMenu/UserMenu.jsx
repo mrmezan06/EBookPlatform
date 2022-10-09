@@ -14,7 +14,7 @@ const UserMenu = () => {
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
-    console.log("Logout successful");
+    // console.log("Logout successful");
     localStorage.clear();
     setLoggedIn(false);
     navigate("/login");
