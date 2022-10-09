@@ -29,7 +29,7 @@ const Navbar = () => {
           Networking
         </Link>
         <Link to="/?cat=cybersecurity" className="link">
-          Cyber Security
+          Security
         </Link>
 
         <div className="search">
