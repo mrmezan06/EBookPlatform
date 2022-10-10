@@ -1,17 +1,19 @@
-import React from "react";
-import "./upload.css";
-
 import axios from "axios";
+import React, { useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
-const Upload = () => {
+const EditBook = () => {
   const [title, setTitle] = React.useState("");
   const [author, setAuthor] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [category, setCategory] = React.useState([]);
   const [image, setImage] = React.useState("");
   const [bookUrl, setBookUrl] = React.useState("");
-  const handleUpload = async (e) => {
+  const location = useLocation();
+  const bookId = location.pathname.split("/")[2];
+
+  const handleUpdate = async () => {
     const userId = localStorage.getItem("userID");
     if (!userId) {
       toast.error("Please login to upload a book");
@@ -22,7 +24,7 @@ const Upload = () => {
       return;
     }
     await axios
-      .post(`/books/upload/${userId}`, {
+      .put(`/books/update/${userId}/${bookId}`, {
         title,
         author,
         description,
@@ -31,20 +33,50 @@ const Upload = () => {
         bookUrl,
       })
       .then((res) => {
-        if (res.status === 200 || res.status === 201) {
-          toast.success("Book uploaded successfully");
+        if (res.status === 200) {
+          toast.success("Book updated successfully!");
+          setTitle(res.data.title);
+          setAuthor(res.data.author);
+          setDescription(res.data.description);
+          setCategory(res.data.category);
+          setImage(res.data.image);
+          setBookUrl(res.data.bookUrl);
         } else {
-          toast.error(`Book upload failed with status code: ${res.status}`);
+          toast.error(`${res.status}: ${res.data.message}`);
         }
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.message);
+        toast.error(err.response.data.message);
       });
   };
+
+  const fetchData = async () => {
+    await axios
+      .get(`/books/edit/${bookId}`)
+      .then((res) => {
+        setTitle(res.data.title);
+        setAuthor(res.data.author);
+        setDescription(res.data.description);
+        setCategory(res.data.category);
+
+        setImage(res.data.image);
+        setBookUrl(res.data.bookUrl);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.message || err.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line
+  }, [location, bookId]);
+
   return (
     <>
-      <h1>Upload Books</h1>
+      <h1>Update Book</h1>
       <Toaster />
       <div className="form">
         <div className="book-name">
@@ -58,6 +90,7 @@ const Upload = () => {
             placeholder="Title of the book"
             onChange={(e) => setTitle(e.target.value)}
             required
+            value={title}
           />
         </div>
 
@@ -72,6 +105,7 @@ const Upload = () => {
             placeholder="Author of the book"
             onChange={(e) => setAuthor(e.target.value)}
             required
+            value={author}
           />
         </div>
         <div className="book-name">
@@ -85,6 +119,7 @@ const Upload = () => {
             placeholder="Description of the book"
             onChange={(e) => setDescription(e.target.value)}
             required
+            value={description}
           ></textarea>
         </div>
         <div className="book-name">
@@ -95,13 +130,14 @@ const Upload = () => {
             type="text"
             name="category"
             id="category"
-            placeholder="Category of the book. Seperated by COMMA(',') Eg: Fiction,Non-Fiction, etc."
+            placeholder="Category of the book. Seperated by COMMA(',') Eg: Fiction Non-Fiction, etc."
             onChange={(e) => {
               const cat = e.target.value;
-              // split by ,
+              // split by comma
               const catArr = cat.split(",");
               setCategory(catArr);
             }}
+            value={category.toString()}
             required
           />
         </div>
@@ -116,6 +152,7 @@ const Upload = () => {
             placeholder="Image URL of the book"
             onChange={(e) => setImage(e.target.value)}
             required
+            value={image}
           />
         </div>
         <div className="book-name">
@@ -127,10 +164,11 @@ const Upload = () => {
             placeholder="Book URL of the book"
             onChange={(e) => setBookUrl(e.target.value)}
             required
+            value={bookUrl}
           />
         </div>
         <div className="book-submit">
-          <button className="submit" onClick={() => handleUpload()}>
+          <button className="submit" onClick={() => handleUpdate()}>
             Submit
           </button>
         </div>
@@ -139,4 +177,4 @@ const Upload = () => {
   );
 };
 
-export default Upload;
+export default EditBook;

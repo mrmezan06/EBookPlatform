@@ -73,14 +73,43 @@ exports.GetBooks = async (req, res) => {
 // Update a book
 exports.UpdateBook = async (req, res) => {
   try {
-    const book = await Book.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    res.status(200).json(book);
+    const uid = req.params.uid;
+    const bid = req.params.id;
+    const book = await Book.findById(bid);
+    if (book) {
+      const user = await User.findById(uid);
+      if (user) {
+        if (uid === book.user._id.toString() || user.isAdmin) {
+          const { title, author, description, category, image, bookUrl } =
+            req.body;
+          const lowCat = category.map((cat) => cat.toLowerCase());
+
+          const updatedBook = await Book.findByIdAndUpdate(
+            bid,
+            {
+              title,
+              author,
+              description,
+              category: lowCat,
+              image,
+              bookUrl,
+            },
+            { new: true }
+          );
+          res.status(200).json(updatedBook);
+        } else {
+          res.status(400).json({
+            message: "You don't have permission to update this book",
+          });
+        }
+      } else {
+        res.status(400).json({
+          message: "User not found",
+        });
+      }
+    } else {
+      res.status(404).json({ message: "Book not found!" });
+    }
   } catch (error) {
     res.status(500).json({
       error: error.message,
@@ -206,14 +235,14 @@ exports.DeleteBookById = async (req, res) => {
     if (book) {
       if (req.params.uid === book.user._id.toString()) {
         await Book.findByIdAndDelete(req.params.id);
-        res.status(200).json({ message: "Book deleted successfully" });
+        res.status(200).json({ message: "Book deleted successfully!" });
       } else {
         res
           .status(400)
           .json({ message: "You don't have permission to delete this book" });
       }
     } else {
-      res.status(404).json({ message: "Book not found" });
+      res.status(404).json({ message: "Book not found!" });
     }
   } catch (error) {
     res.status(400).json({
@@ -225,7 +254,23 @@ exports.DeleteBookById = async (req, res) => {
 exports.DeleteBookByAdmin = async (req, res) => {
   try {
     await Book.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Book deleted successfully" });
+    res.status(200).json({ message: "Book deleted successfully!" });
+  } catch (error) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
+};
+
+// Get a book by Id
+exports.GetBookById = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (book) {
+      res.status(200).json(book);
+    } else {
+      res.status(404).json({ message: "Book not found!" });
+    }
   } catch (error) {
     res.status(400).json({
       message: error.message,

@@ -10,8 +10,9 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
   const handleEditClick = (id) => {
-    console.log("Edit", id - 1);
+    navigate(`/edit/${rows[id - 1]._id}`);
   };
   const handleDeleteClick = async (id) => {
     try {
@@ -20,7 +21,7 @@ const Dashboard = () => {
       if (isAdmin) {
         await axios.delete(`/books/admin/${bookId}`).then((res) => {
           if (res.status === 200) {
-            toast.success("Book Deleted Successfully");
+            toast.success(res.data.message);
             fetchData();
           } else {
             toast.error(res.data.message);
@@ -37,7 +38,7 @@ const Dashboard = () => {
         });
       }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error(error.response.data.message);
     }
   };
   // const columnsUser = [
@@ -126,8 +127,6 @@ const Dashboard = () => {
   const [rows, setRows] = useState([]);
   const userId = localStorage.getItem("userID");
 
-  const navigate = useNavigate();
-
   const [pageSize, setPageSize] = React.useState(0);
 
   const fetchData = async () => {
@@ -156,14 +155,14 @@ const Dashboard = () => {
         }
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error(err.response.data.message || err.message);
       });
   };
 
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    // eslint-disable-next-line
+  }, [userId]);
 
   return (
     <div className="dashboard">
