@@ -89,7 +89,11 @@ const Home = () => {
           </div>
           <div className="bookInfo">
             <div className="bookTitle">{book.title}</div>
-            <div className="bookDesc">{book.description}</div>
+            <div className="bookDesc">
+              {book.description.length > 60
+                ? book.description.slice(0, 60).concat("...")
+                : book.description}
+            </div>
             <div className="bookAuthor">
               Author: <span>{book.author}</span>
             </div>
