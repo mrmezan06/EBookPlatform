@@ -63,3 +63,59 @@
 .power > a:hover {
   color: lightblue;
 }
+
+/* Media Query for 1024px */
+@media (max-width: 1024px) {
+  .footer {
+    max-width: 1024px;
+  }
+}
+
+/* Media Query for 768px */
+@media (max-width: 768px) {
+  .footer {
+    max-width: 768px;
+  }
+}
+
+/* Media Query for 576px */
+@media (max-width: 576px) {
+  .footer {
+    max-width: 576px;
+  }
+}
+
+/* Media Query for 480px */
+@media (max-width: 480px) {
+  .footer {
+    max-width: 480px;
+  }
+  .footer {
+    max-width: 320px;
+  }
+  .left > p {
+    font-size: 16px;
+  }
+  .right > p {
+    font-size: 14px;
+  }
+  .power {
+    font-size: 14px;
+  }
+}
+
+/* Media Query for 320px */
+@media (max-width: 320px) {
+  .footer {
+    max-width: 320px;
+  }
+  .left > p {
+    font-size: 16px;
+  }
+  .right > p {
+    font-size: 12px;
+  }
+  .power {
+    font-size: 12px;
+  }
+}

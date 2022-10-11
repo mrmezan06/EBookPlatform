@@ -20,8 +20,8 @@
 
 .menuItems {
   position: absolute;
-  top: 60px;
-  left: -60px;
+  top: 65px;
+  left: -90px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,4 +40,54 @@
   border: none;
   background-color: teal;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .userMenu {
+    width: 40px;
+  }
+  .menuIcon {
+    font-size: 24px;
+  }
+
+  .userlink {
+    font-size: 20px;
+  }
+  .menuItems {
+    top: 60px;
+    left: -80px;
+  }
+}
+
+@media (max-width: 768px) {
+  .userMenu {
+    width: 30px;
+  }
+  .menuIcon {
+    font-size: 20px;
+  }
+
+  .userlink {
+    font-size: 16px;
+  }
+  .menuItems {
+    top: 60px;
+    left: -70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .userMenu {
+    width: 20px;
+  }
+  .menuIcon {
+    font-size: 16px;
+  }
+  .userlink {
+    font-size: 12px;
+  }
+  .menuItems {
+    top: 45px;
+    left: -60px;
+  }
 }

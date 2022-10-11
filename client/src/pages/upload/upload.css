@@ -83,3 +83,53 @@
   font-weight: bold;
   border-radius: 4px;
 }
+
+/* Media Query For 1024px */
+@media (max-width: 1024px) {
+  .main-container {
+    max-width: 768px;
+  }
+  .form {
+    width: 768px;
+  }
+}
+
+/* Media Query For 768px */
+@media (max-width: 768px) {
+  .main-container {
+    max-width: 576px;
+  }
+  .form {
+    width: 100%;
+  }
+}
+
+/* Media Query For 576px */
+@media (max-width: 576px) {
+  .main-container {
+    max-width: 480px;
+  }
+  .form {
+    width: 100%;
+  }
+}
+
+/* Media Query For 480px */
+@media (max-width: 480px) {
+  .main-container {
+    max-width: 320px;
+  }
+  .form {
+    width: 100%;
+  }
+}
+
+/* Media Query For 320px */
+@media (max-width: 320px) {
+  .main-container {
+    max-width: 280px;
+  }
+  .form {
+    width: 100%;
+  }
+}

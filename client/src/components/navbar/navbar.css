@@ -58,3 +58,96 @@
   border-radius: 10px;
   padding: 0 10px;
 }
+
+/* Media Query For Width 1024px to 768px */
+@media (max-width: 1024px) {
+  .navContainer {
+    max-width: 768px;
+  }
+
+  .logo {
+    font-size: 28px;
+  }
+
+  .menu {
+    gap: 10px;
+  }
+
+  .link {
+    font-size: 24px;
+  }
+
+  .search {
+    margin-left: 10px;
+  }
+
+  .searchInput {
+    font-size: 16px;
+  }
+
+  .searchInput input {
+    font-size: 16px;
+  }
+}
+
+/* Media Query For Width 768px to 480px */
+@media (max-width: 768px) {
+  .navContainer {
+    max-width: 480px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .menu {
+    gap: 5px;
+  }
+
+  .link {
+    font-size: 16px;
+  }
+
+  .search {
+    margin-left: 5px;
+  }
+
+  .searchInput {
+    font-size: 12px;
+  }
+
+  .searchInput input {
+    font-size: 12px;
+  }
+}
+
+/* Media Query For Width 480px */
+@media (max-width: 480px) {
+  .navContainer {
+    max-width: 320px;
+    height: 60px;
+  }
+
+  .searchInput {
+    font-size: 10px;
+  }
+
+  .searchInput input {
+    font-size: 10px;
+  }
+}
+
+/* Media Query For Width 320px */
+@media (max-width: 320px) {
+  .navContainer {
+    max-width: 280px;
+  }
+
+  .searchInput {
+    font-size: 8px;
+  }
+
+  .searchInput input {
+    font-size: 8px;
+  }
+}

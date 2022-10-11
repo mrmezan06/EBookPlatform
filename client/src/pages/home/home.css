@@ -110,3 +110,176 @@ img {
   color: teal;
   font-weight: bold;
 }
+
+/* Media Query for 1024px */
+@media (max-width: 1024px) {
+  .book-container {
+    max-width: 1024px;
+  }
+
+  .book {
+    width: 758px;
+  }
+
+  .bookTitle {
+    font-size: 24px;
+  }
+
+  .bookDesc {
+    font-size: 16px;
+  }
+
+  .bookAuthor {
+    font-size: 18px;
+  }
+
+  .bookUploader {
+    font-size: 18px;
+  }
+
+  .bookLink {
+    font-size: 16px;
+  }
+
+  .agotime {
+    font-size: 16px;
+  }
+}
+
+/* Media Query for 768px */
+@media (max-width: 768px) {
+  .book-container {
+    max-width: 768px;
+  }
+  .book {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .book:nth-child(2n) {
+    flex-direction: column;
+  }
+
+  .cover {
+    height: 320px;
+  }
+
+  img {
+    width: 480px;
+    height: 320px;
+    background-size: cover;
+  }
+
+  .bookInfo {
+    height: 320px;
+  }
+  .bookTitle {
+    font-size: 20px;
+  }
+  .bookDesc {
+    font-size: 18px;
+  }
+
+  .bookAuthor {
+    font-size: 16px;
+  }
+
+  .bookUploader {
+    font-size: 16px;
+  }
+
+  .bookLink {
+    font-size: 16px;
+  }
+
+  .agotime {
+    font-size: 14px;
+  }
+  .bookButtons {
+    margin-bottom: 10px;
+  }
+}
+
+/* Media Query for 480px */
+@media (max-width: 480px) {
+  .book-container {
+    max-width: 320px;
+  }
+  .book {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .book:nth-child(2n) {
+    flex-direction: column;
+  }
+
+  .cover {
+    height: 320px;
+  }
+
+  img {
+    height: 320px;
+    background-size: cover;
+  }
+
+  .bookInfo {
+    height: 320px;
+  }
+  .bookTitle {
+    font-size: 18px;
+  }
+  .bookDesc {
+    font-size: 16px;
+  }
+
+  .bookAuthor {
+    font-size: 14px;
+  }
+
+  .bookUploader {
+    font-size: 14px;
+  }
+
+  .bookLink {
+    font-size: 14px;
+  }
+
+  .agotime {
+    font-size: 12px;
+  }
+  .bookButtons {
+    margin-bottom: 10px;
+  }
+}
+
+/* Media Query for 320px */
+@media (max-width: 320px) {
+  .book-container {
+    max-width: 280px;
+  }
+  .book {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .book:nth-child(2n) {
+    flex-direction: column;
+  }
+
+  .cover {
+    height: 320px;
+  }
+
+  img {
+    height: 320px;
+    background-size: cover;
+  }
+
+  .bookInfo {
+    height: 320px;
+  }
+  .bookButtons {
+    margin-bottom: 10px;
+  }
+}
