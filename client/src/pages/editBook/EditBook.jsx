@@ -1,23 +1,30 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const EditBook = () => {
-  const [title, setTitle] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [category, setCategory] = React.useState([]);
-  const [image, setImage] = React.useState("");
-  const [bookUrl, setBookUrl] = React.useState("");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState([]);
+  const [image, setImage] = useState("");
+  const [bookUrl, setBookUrl] = useState("");
   const location = useLocation();
   const bookId = location.pathname.split("/")[2];
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleUpdate = async () => {
+    setOpen(true);
     const userId = localStorage.getItem("userID");
     if (!userId) {
-      toast.error("Please login to upload a book");
-      return;
+      navigate("/login");
     }
     if (!title || !author || !description || !category || !image || !bookUrl) {
       toast.error("Please fill-up all the fields");
@@ -49,9 +56,11 @@ const EditBook = () => {
         console.log(err);
         toast.error(err.response.data.message);
       });
+    setOpen(false);
   };
 
   const fetchData = async () => {
+    setOpen(true);
     await axios
       .get(`/books/edit/${bookId}`)
       .then((res) => {
@@ -67,6 +76,7 @@ const EditBook = () => {
         console.log(err);
         toast.error(err.response.data.message || err.message);
       });
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -76,6 +86,13 @@ const EditBook = () => {
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Update Book</h1>
       <Toaster />
       <div className="form">

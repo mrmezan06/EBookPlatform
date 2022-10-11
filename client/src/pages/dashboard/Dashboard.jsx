@@ -7,14 +7,23 @@ import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleEditClick = (id) => {
     navigate(`/edit/${rows[id - 1]._id}`);
   };
   const handleDeleteClick = async (id) => {
+    setOpen(true);
     try {
       const bookId = rows[id - 1]._id;
 
@@ -40,6 +49,7 @@ const Dashboard = () => {
     } catch (error) {
       toast.error(error.response.data.message);
     }
+    setOpen(false);
   };
   // const columnsUser = [
   //   { field: "id", headerName: "ID", width: 100 },
@@ -133,6 +143,7 @@ const Dashboard = () => {
     if (!userId) {
       navigate("/login");
     }
+    setOpen(true);
     await axios
       .get(`/books/admin/${userId}`)
       .then((res) => {
@@ -157,6 +168,7 @@ const Dashboard = () => {
       .catch((err) => {
         toast.error(err.response.data.message || err.message);
       });
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -166,6 +178,13 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Dashboard</h1>
       <Toaster />
       <Box sx={{ height: 600, width: "100%" }}>

@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import "./login.css";
 
 const Login = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleLogin = async () => {
+    setOpen(true);
     await axios
       .post("/auth/login", { email, password })
       .then((res) => {
@@ -27,10 +35,17 @@ const Login = () => {
       .catch((err) => {
         toast.error(err.message);
       });
-    // save userId in localStorage
+    setOpen(false);
   };
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Login</h1>
       <Toaster />
       <div className="form">

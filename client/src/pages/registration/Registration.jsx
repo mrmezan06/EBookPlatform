@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Registration = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
 
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
       return;
     }
+    setOpen(true);
     await axios
       .post("/auth/register", { name, email, password })
       .then((res) => {
@@ -27,10 +35,18 @@ const Registration = () => {
         console.log(err);
         toast.error(`Registration failed: ${err.code}`);
       });
+    setOpen(false);
   };
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Registration</h1>
       <Toaster />
       <div className="form">

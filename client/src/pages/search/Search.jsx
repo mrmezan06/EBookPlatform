@@ -4,8 +4,10 @@ import { useEffect } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import "./search.css";
 import { Pagination, Box } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import "./search.css";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -16,14 +18,19 @@ const Search = () => {
   const [pages, setPages] = useState(1);
 
   const itemsPerPage = 3;
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handlePageChange = (event, page) => {
     setPages(page);
   };
 
   const fetchBooks = async () => {
+    setOpen(true);
     try {
-      // console.log(category);
       await axios
         .get(
           `/books/search?title=${searchTerm}&page=${pages}&items=${itemsPerPage}`
@@ -42,6 +49,7 @@ const Search = () => {
     } catch (error) {
       toast.error("Something went wrong!");
     }
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -51,6 +59,13 @@ const Search = () => {
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="searchInput">
         <input
           type="text"

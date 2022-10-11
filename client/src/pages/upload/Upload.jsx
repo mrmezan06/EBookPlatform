@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import "./upload.css";
 
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 const Upload = () => {
-  const [title, setTitle] = React.useState("");
-  const [author, setAuthor] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [category, setCategory] = React.useState([]);
-  const [image, setImage] = React.useState("");
-  const [bookUrl, setBookUrl] = React.useState("");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState([]);
+  const [image, setImage] = useState("");
+  const [bookUrl, setBookUrl] = useState("");
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleUpload = async (e) => {
     const userId = localStorage.getItem("userID");
     if (!userId) {
-      toast.error("Please login to upload a book");
-      return;
+      navigate("/login");
     }
     if (!title || !author || !description || !category || !image || !bookUrl) {
       toast.error("Please fill-up all the fields");
       return;
     }
+    setOpen(true);
     await axios
       .post(`/books/upload/${userId}`, {
         title,
@@ -41,9 +50,17 @@ const Upload = () => {
         console.log(err);
         toast.error(err.message);
       });
+    setOpen(false);
   };
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Upload Books</h1>
       <Toaster />
       <div className="form">

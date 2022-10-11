@@ -1,21 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import "./profile.css";
 import { useEffect } from "react";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import "./profile.css";
 
 const Profile = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [profileImg, setprofileImg] = React.useState("");
-  const [name, setName] = React.useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [profileImg, setprofileImg] = useState("");
+  const [name, setName] = useState("");
 
   const navigate = useNavigate();
   const userId = localStorage.getItem("userID");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleUpdate = async () => {
     const userId = localStorage.getItem("userID");
+    setOpen(true);
     try {
       if (password === "") {
         await axios
@@ -47,12 +55,14 @@ const Profile = () => {
     } catch (error) {
       toast.error(`Error updating with error code ${error.code}`);
     }
+    setOpen(false);
   };
 
   const fetchData = async (id) => {
     if (!id) {
       navigate("/login");
     }
+    setOpen(true);
     await axios
       .get(`/auth/user/${id}`)
       .then((res) => {
@@ -64,6 +74,7 @@ const Profile = () => {
       .catch((err) => {
         toast.error(err.message);
       });
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -73,6 +84,13 @@ const Profile = () => {
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <h1>Update Profile</h1>
       <Toaster />
       <div className="profileImgContainer">

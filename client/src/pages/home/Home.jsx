@@ -8,6 +8,8 @@ import { useLocation } from "react-router-dom";
 import { Pagination, Box } from "@mui/material";
 
 import { formatDistanceToNow, parseISO } from "date-fns";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -19,11 +21,18 @@ const Home = () => {
 
   const itemsPerPage = 3;
 
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handlePageChange = (event, page) => {
     setPages(page);
   };
 
   const fetchBooks = async (category) => {
+    setOpen(true);
     if (!category) {
       category = "?";
     } else {
@@ -48,6 +57,7 @@ const Home = () => {
     } catch (error) {
       toast.error("Something went wrong!");
     }
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -58,6 +68,13 @@ const Home = () => {
 
   return (
     <div className="book-container">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Toaster />
       {/* if books.length===0 then shows No books found */}
       {books.length === 0 && (
