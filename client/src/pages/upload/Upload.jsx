@@ -116,7 +116,7 @@ const Upload = () => {
             onChange={(e) => {
               const cat = e.target.value;
               // split by ,
-              const catArr = cat.replaceAll(" ", "").split(",");
+              const catArr = cat.split(",");
               setCategory(catArr);
             }}
             required
