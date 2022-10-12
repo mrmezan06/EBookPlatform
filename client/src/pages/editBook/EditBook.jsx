@@ -151,7 +151,7 @@ const EditBook = () => {
             onChange={(e) => {
               const cat = e.target.value;
               // split by comma
-              const catArr = cat.split(",");
+              const catArr = cat.replaceAll(" ", "").split(",");
               setCategory(catArr);
             }}
             value={category.toString()}
