@@ -53,7 +53,7 @@ exports.GetBooks = async (req, res) => {
         .sort({
           createdAt: "desc",
         });
-      res.status(200).json({ books, pageCount });
+      res.status(200).json({ books, pageCount, count });
     } else {
       const count = await Book.countDocuments();
       const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
@@ -61,7 +61,7 @@ exports.GetBooks = async (req, res) => {
       const books = await Book.find().limit(ITEMS_PER_PAGE).skip(skip).sort({
         createdAt: "desc",
       });
-      res.status(200).json({ books, pageCount });
+      res.status(200).json({ books, pageCount, count });
     }
   } catch (error) {
     res.status(400).json({
@@ -189,15 +189,15 @@ exports.SearchBook = async (req, res) => {
             .skip(skip)
             .sort({ createdAt: "desc" });
 
-          res.status(200).json({ books, pageCount });
+          res.status(200).json({ books, pageCount, count });
         } else {
-          res.status(200).json({ books, pageCount });
+          res.status(200).json({ books, pageCount, count });
         }
       } else {
-        res.status(200).json({ books, pageCount });
+        res.status(200).json({ books, pageCount, count });
       }
     } else {
-      res.status(200).json({ books, pageCount });
+      res.status(200).json({ books, pageCount, count });
     }
   } catch (error) {
     res.status(400).json({

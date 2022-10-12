@@ -10,12 +10,14 @@ import { Pagination, Box } from "@mui/material";
 import { formatDistanceToNow, parseISO } from "date-fns";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import numberWithCommas from "../../utils/commaSeperated";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const location = useLocation();
 
   const [pageSize, setPageSize] = useState(1);
+  const [count, setCount] = useState(0);
 
   const [pages, setPages] = useState(1);
 
@@ -45,6 +47,7 @@ const Home = () => {
         .then((res) => {
           setBooks(res.data.books);
           setPageSize(res.data.pageCount);
+          setCount(res.data.count);
           // console.log(books);
           // Fetch User Details
         })
@@ -82,6 +85,11 @@ const Home = () => {
           <h1>No Books Found!</h1>
         </div>
       )}
+      <div className="totalBooks">
+        Ocean Book is your search engine for PDF files. As of today we have{" "}
+        <span>{numberWithCommas(count)}</span> eBooks for you to download for
+        free. No annoying ads, no download limits, enjoy it and share the love!
+      </div>
       {books?.map((book) => (
         <div className="book" key={book._id}>
           <div className="cover">

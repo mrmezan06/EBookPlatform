@@ -111,6 +111,18 @@ img {
   font-weight: bold;
 }
 
+.totalBooks {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 300;
+  color: rgb(2, 85, 85);
+}
+
+.totalBooks span {
+  color: teal;
+  font-weight: bold;
+}
+
 /* Media Query for 1024px */
 @media (max-width: 1024px) {
   .book-container {
@@ -251,6 +263,9 @@ img {
   .bookButtons {
     margin-bottom: 10px;
   }
+  .totalBooks {
+    font-size: 16px;
+  }
 }
 
 /* Media Query for 320px */
@@ -281,5 +296,8 @@ img {
   }
   .bookButtons {
     margin-bottom: 10px;
+  }
+  .totalBooks {
+    font-size: 14px;
   }
 }

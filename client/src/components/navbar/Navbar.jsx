@@ -20,7 +20,6 @@ const Navbar = () => {
     } else {
       setShowCategories(true);
     }
-
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setShowCategories(false);
