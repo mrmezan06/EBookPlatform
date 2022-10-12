@@ -39,11 +39,14 @@ exports.GetBooks = async (req, res) => {
     const page = req.query.page || 1;
     const skip = (page - 1) * ITEMS_PER_PAGE;
 
+    const allCount = await Book.countDocuments();
+
     // count the number of books
 
     const loQuery = query?.toLowerCase();
     if (loQuery) {
       // based Query
+
       const count = await Book.countDocuments({ category: loQuery });
       const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
 
@@ -53,7 +56,7 @@ exports.GetBooks = async (req, res) => {
         .sort({
           createdAt: "desc",
         });
-      res.status(200).json({ books, pageCount, count });
+      res.status(200).json({ books, pageCount, count: allCount });
     } else {
       const count = await Book.countDocuments();
       const pageCount = Math.ceil(count / ITEMS_PER_PAGE);
@@ -61,7 +64,7 @@ exports.GetBooks = async (req, res) => {
       const books = await Book.find().limit(ITEMS_PER_PAGE).skip(skip).sort({
         createdAt: "desc",
       });
-      res.status(200).json({ books, pageCount, count });
+      res.status(200).json({ books, pageCount, count: allCount });
     }
   } catch (error) {
     res.status(400).json({
@@ -138,6 +141,8 @@ exports.SearchBook = async (req, res) => {
   const page = req.query.page || 1;
   const skip = (page - 1) * ITEMS_PER_PAGE;
 
+  const allCount = await Book.countDocuments();
+
   try {
     var count = await Book.countDocuments({
       title: { $regex: title, $options: "i" },
@@ -189,15 +194,15 @@ exports.SearchBook = async (req, res) => {
             .skip(skip)
             .sort({ createdAt: "desc" });
 
-          res.status(200).json({ books, pageCount, count });
+          res.status(200).json({ books, pageCount, count: allCount });
         } else {
-          res.status(200).json({ books, pageCount, count });
+          res.status(200).json({ books, pageCount, count: allCount });
         }
       } else {
-        res.status(200).json({ books, pageCount, count });
+        res.status(200).json({ books, pageCount, count: allCount });
       }
     } else {
-      res.status(200).json({ books, pageCount, count });
+      res.status(200).json({ books, pageCount, count: allCount });
     }
   } catch (error) {
     res.status(400).json({

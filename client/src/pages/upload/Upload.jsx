@@ -42,6 +42,12 @@ const Upload = () => {
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           toast.success("Book uploaded successfully");
+          setTitle("");
+          setAuthor("");
+          setDescription("");
+          setCategory([]);
+          setImage("");
+          setBookUrl("");
         } else {
           toast.error(`Book upload failed with status code: ${res.status}`);
         }
@@ -74,6 +80,7 @@ const Upload = () => {
             id="name"
             placeholder="Title of the book"
             onChange={(e) => setTitle(e.target.value)}
+            value={title}
             required
           />
         </div>
@@ -86,6 +93,7 @@ const Upload = () => {
             type="text"
             name="author"
             id="author"
+            value={author}
             placeholder="Author of the book"
             onChange={(e) => setAuthor(e.target.value)}
             required
@@ -99,6 +107,7 @@ const Upload = () => {
             name="description"
             id="description"
             cols="10"
+            value={description}
             placeholder="Description of the book"
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -113,6 +122,7 @@ const Upload = () => {
             name="category"
             id="category"
             placeholder="Category of the book. Seperated by COMMA(',') Eg: Fiction,Non-Fiction, etc."
+            value={category.toString()}
             onChange={(e) => {
               const cat = e.target.value;
               // split by ,
@@ -130,6 +140,7 @@ const Upload = () => {
             type="text"
             name="image"
             id="image"
+            value={image}
             placeholder="Image URL of the book"
             onChange={(e) => setImage(e.target.value)}
             required
@@ -141,6 +152,7 @@ const Upload = () => {
             type="text"
             name="book"
             id="book"
+            value={bookUrl}
             placeholder="Book URL of the book"
             onChange={(e) => setBookUrl(e.target.value)}
             required
