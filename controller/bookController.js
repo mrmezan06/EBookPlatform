@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 exports.Upload = async (req, res) => {
   try {
     const { title, author, description, category, image, bookUrl } = req.body;
-    const lowCat = category.map((cat) => cat.toLowerCase());
+    const lowCat = category.map((cat) => cat.replaceAll(" ", "").toLowerCase());
     const _id = mongoose.mongo.ObjectId(req.params.uid);
 
     const user = await User.findById(_id);
@@ -82,7 +82,9 @@ exports.UpdateBook = async (req, res) => {
         if (uid === book.user._id.toString() || user.isAdmin) {
           const { title, author, description, category, image, bookUrl } =
             req.body;
-          const lowCat = category.map((cat) => cat.toLowerCase());
+          const lowCat = category.map((cat) =>
+            cat.replaceAll(" ", "").toLowerCase()
+          );
 
           const updatedBook = await Book.findByIdAndUpdate(
             bid,
