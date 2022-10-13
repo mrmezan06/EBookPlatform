@@ -239,22 +239,22 @@ img {
     height: 320px;
   }
   .bookTitle {
-    font-size: 18px;
+    font-size: 16px;
   }
   .bookDesc {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .bookAuthor {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .bookUploader {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .bookLink {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .agotime {
@@ -293,6 +293,24 @@ img {
 
   .bookInfo {
     height: 320px;
+  }
+  .bookTitle {
+    font-size: 16px;
+  }
+  .bookDesc {
+    font-size: 14px;
+  }
+
+  .bookAuthor {
+    font-size: 12px;
+  }
+
+  .bookUploader {
+    font-size: 12px;
+  }
+
+  .bookLink {
+    font-size: 12px;
   }
   .bookButtons {
     margin-bottom: 10px;
