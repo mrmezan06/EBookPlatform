@@ -1,7 +1,7 @@
 const {
   Upload,
   GetBooks,
-  DeleteBook,
+
   UpdateBook,
   SearchBook,
   GetAllBooks,
@@ -15,7 +15,6 @@ const router = require("express").Router();
 
 router.post("/upload/:uid", verifyUser, Upload);
 router.get("/getBooks", GetBooks);
-router.delete("/delete/:id", verifyAdmin, DeleteBook);
 
 // Update by User
 router.put("/update/:uid/:id", verifyUser, UpdateBook);

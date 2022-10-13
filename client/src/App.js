@@ -10,6 +10,7 @@ import Registration from "./pages/registration/Registration";
 import Search from "./pages/search/Search";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditBook from "./pages/editBook/EditBook";
+import ManageUser from "./pages/manageUser/ManageUser";
 export default function App() {
   return (
     <div className="app">
@@ -24,6 +25,7 @@ export default function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/dashboard/:id" element={<Dashboard />} />
           <Route path="/edit/:id" element={<EditBook />} />
+          <Route path="/manage/:id" element={<ManageUser />} />
         </Routes>
       </div>
       <Footer />

@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import "./userMenu.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const UserMenu = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -10,6 +12,7 @@ const UserMenu = () => {
   const userId = localStorage.getItem("userID");
 
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,16 +23,41 @@ const UserMenu = () => {
     navigate("/login");
   };
 
+  const fetchUserDetails = async (id) => {
+    try {
+      await axios
+        .get(`/auth/user/${id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            if (res.data.isAdmin) {
+              setIsAdmin(true);
+            } else {
+              setIsAdmin(false);
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data.message);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const userId = localStorage.getItem("userID");
 
     if (userId) {
       setLoggedIn(true);
+      fetchUserDetails(userId);
     }
-  }, [userId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, isAdmin]);
 
   return (
     <div className="userMenu">
+      <Toaster />
       <FontAwesomeIcon
         icon={showMenu ? faXmark : faBars}
         className="menuIcon"
@@ -46,6 +74,7 @@ const UserMenu = () => {
           >
             Upload
           </Link>
+
           {loggedIn ? (
             <>
               <Link to={`/dashboard/${userId}`} className="userlink">
@@ -54,6 +83,11 @@ const UserMenu = () => {
               <Link to={`/profile/${userId}`} className="userlink">
                 Profile
               </Link>
+              {isAdmin && (
+                <Link to={`/manage/${userId}`} className="userlink">
+                  Manage
+                </Link>
+              )}
             </>
           ) : (
             <Link to="/login" className="userlink">

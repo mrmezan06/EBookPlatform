@@ -11,7 +11,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Dashboard = () => {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [userStatus, setUserStatus] = useState("");
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -26,26 +26,14 @@ const Dashboard = () => {
     setOpen(true);
     try {
       const bookId = rows[id - 1]._id;
-
-      if (isAdmin) {
-        await axios.delete(`/books/admin/${bookId}`).then((res) => {
-          if (res.status === 200) {
-            toast.success(res.data.message);
-            fetchData();
-          } else {
-            toast.error(res.data.message);
-          }
-        });
-      } else {
-        await axios.delete(`/books/user/${userId}/${bookId}`).then((res) => {
-          if (res.status === 200) {
-            toast.success("Book Deleted Successfully");
-            fetchData();
-          } else {
-            toast.error(res.data.message);
-          }
-        });
-      }
+      await axios.delete(`/books/user/${userId}/${bookId}`).then((res) => {
+        if (res.status === 200) {
+          toast.success("Book Deleted Successfully");
+          fetchData();
+        } else {
+          toast.error(res.data.message);
+        }
+      });
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -149,7 +137,8 @@ const Dashboard = () => {
       .then((res) => {
         // console.log(res.data);
         setPageSize(res.data.count);
-        setIsAdmin(res.data.isAdmin);
+
+        setUserStatus(res.data.status);
         // setBooks(res.data.books);
         var rw = [];
         if (res.data.books.length > 0) {
@@ -185,7 +174,7 @@ const Dashboard = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <h1>Dashboard</h1>
+      <h1>Dashboard - {userStatus.toUpperCase()}</h1>
       <Toaster />
       <Box sx={{ height: 600, width: "100%" }}>
         <DataGrid

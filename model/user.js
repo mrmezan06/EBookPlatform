@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    status: {
+      type: String,
+      default: "user",
+    },
   },
   { timestamps: true }
 );

@@ -82,7 +82,12 @@ exports.UpdateBook = async (req, res) => {
     if (book) {
       const user = await User.findById(uid);
       if (user) {
-        if (uid === book.user._id.toString() || user.isAdmin) {
+        if (
+          uid === book.user._id.toString() ||
+          user.isAdmin ||
+          user.status === "admin" ||
+          user.status === "moderator"
+        ) {
           const { title, author, description, category, image, bookUrl } =
             req.body;
           const lowCat = category.map((cat) =>
@@ -104,7 +109,8 @@ exports.UpdateBook = async (req, res) => {
           res.status(200).json(updatedBook);
         } else {
           res.status(400).json({
-            message: "You don't have permission to update this book",
+            message:
+              "Book can be edited by Admin, Moderator and Uploader of the book",
           });
         }
       } else {
@@ -117,18 +123,6 @@ exports.UpdateBook = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({
-      error: error.message,
-    });
-  }
-};
-
-// Delete a book
-exports.DeleteBook = async (req, res) => {
-  try {
-    await Book.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Book deleted successfully" });
-  } catch (error) {
-    res.status(400).json({
       error: error.message,
     });
   }
@@ -215,10 +209,16 @@ exports.SearchBook = async (req, res) => {
 exports.GetAllBooks = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    if (user?.isAdmin) {
+    if (
+      user?.isAdmin ||
+      user?.status === "admin" ||
+      user?.status === "moderator"
+    ) {
       const books = await Book.find();
       const count = await Book.countDocuments();
-      res.status(200).json({ count, books, isAdmin: user?.isAdmin });
+      res
+        .status(200)
+        .json({ count, books, isAdmin: user?.isAdmin, status: user?.status });
     } else {
       // find where book.user._id === req.params.id
       const books = await Book.find();
@@ -226,7 +226,12 @@ exports.GetAllBooks = async (req, res) => {
 
       const MyBook = books.filter((book) => book.user?._id == uid);
       const count = MyBook.length;
-      res.status(200).json({ count, books: MyBook, isAdmin: user?.isAdmin });
+      res.status(200).json({
+        count,
+        books: MyBook,
+        isAdmin: user?.isAdmin,
+        status: user?.status,
+      });
     }
   } catch (error) {
     res.status(400).json({
@@ -244,9 +249,16 @@ exports.DeleteBookById = async (req, res) => {
         await Book.findByIdAndDelete(req.params.id);
         res.status(200).json({ message: "Book deleted successfully!" });
       } else {
-        res
-          .status(400)
-          .json({ message: "You don't have permission to delete this book" });
+        const user = await User.findById(req.params.uid);
+        if (user?.status === "admin" || user?.status === "moderator") {
+          await Book.findByIdAndDelete(req.params.id);
+          res.status(200).json({ message: "Book deleted successfully!" });
+        } else {
+          res.status(400).json({
+            message:
+              "Book can be deleted by Admin, Moderator and Uploader of the book",
+          });
+        }
       }
     } else {
       res.status(404).json({ message: "Book not found!" });
