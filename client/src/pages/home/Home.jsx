@@ -21,7 +21,7 @@ const Home = () => {
 
   const [pages, setPages] = useState(1);
 
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
 
   const [open, setOpen] = useState(false);
 
@@ -96,7 +96,11 @@ const Home = () => {
             <img src={book.image} alt="" className="bookCover" />
           </div>
           <div className="bookInfo">
-            <div className="bookTitle">{book.title}</div>
+            <div className="bookTitle">
+              {book.title.length > 27
+                ? book.title.slice(0, 24).concat("...")
+                : book.title}
+            </div>
             <div className="bookDesc">
               {book.description.length > 60
                 ? book.description.slice(0, 60).concat("...")
