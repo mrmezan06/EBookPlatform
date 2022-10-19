@@ -3,7 +3,7 @@ import "./read.css";
 
 const Read = () => {
   const path = window.location;
-  console.log(path.search.replace("?key=", ""));
+  // console.log(path.search.replace("?key=", ""));
   const key = path.search.replace("?key=", "");
 
   return (

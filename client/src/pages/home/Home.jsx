@@ -11,6 +11,7 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import numberWithCommas from "../../utils/commaSeperated";
+import kmbSeperator from "../../utils/kmbSeperator";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -25,11 +26,6 @@ const Home = () => {
 
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
-  const read = (url) => {
-    const key = url.split("/")[5];
-    navigate(`/read?key=${key}`);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -69,11 +65,34 @@ const Home = () => {
     setOpen(false);
   };
 
+  const [vCount, setVCount] = useState(1);
+
+  const AddViewerAndGetViewCount = async (id) => {
+    try {
+      await axios
+        .post(`/count`, { bookId: id })
+        .then((res) => {
+          setVCount(res.data.count);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const read = (url, id) => {
+    AddViewerAndGetViewCount(id);
+    const key = url.split("/")[5];
+    navigate(`/read?key=${key}`);
+  };
+
   const [ftitle, setFtitle] = useState(true);
 
   useEffect(() => {
     const category = location.search;
     fetchBooks(category);
+    AddViewerAndGetViewCount();
 
     if (window.innerWidth < 1024) {
       setFtitle(false);
@@ -111,6 +130,8 @@ const Home = () => {
         Ocean Book is your search engine for PDF files. As of today we have{" "}
         <span>{numberWithCommas(count)}</span> eBooks for you to download for
         free. No annoying ads, no download limits, enjoy it and share the love!
+        We have a total of <span>{kmbSeperator(vCount)}</span> visitors on this
+        website.
       </div>
       {books?.map((book) => (
         <div className="book" key={book._id}>
@@ -143,7 +164,10 @@ const Home = () => {
               <span>{formatDistanceToNow(parseISO(book.createdAt))} ago</span>
             </div>
             <div className="bookButtons">
-              <button className="bookLink" onClick={() => read(book.bookUrl)}>
+              <button
+                className="bookLink"
+                onClick={() => read(book.bookUrl, book._id)}
+              >
                 Read
               </button>
               <a

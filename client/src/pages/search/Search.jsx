@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import "./search.css";
 import numberWithCommas from "../../utils/commaSeperated";
 import { useNavigate } from "react-router-dom";
+import kmbSeperator from "../../utils/kmbSeperator";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -28,10 +29,6 @@ const Search = () => {
   };
 
   const navigate = useNavigate();
-  const read = (url) => {
-    const key = url.split("/")[5];
-    navigate(`/read?key=${key}`);
-  };
 
   const handlePageChange = (event, page) => {
     setPages(page);
@@ -63,9 +60,31 @@ const Search = () => {
   };
 
   const [ftitle, setFtitle] = useState(true);
+  const [vCount, setVCount] = useState(1);
+
+  const AddViewerAndGetViewCount = async (id) => {
+    try {
+      await axios
+        .post(`/count`, { bookId: id })
+        .then((res) => {
+          setVCount(res.data.count);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const read = (url, id) => {
+    AddViewerAndGetViewCount(id);
+    const key = url.split("/")[5];
+    navigate(`/read?key=${key}`);
+  };
 
   useEffect(() => {
     fetchBooks();
+    AddViewerAndGetViewCount();
 
     if (window.innerWidth < 1024) {
       setFtitle(false);
@@ -114,7 +133,8 @@ const Search = () => {
           Ocean Book is your search engine for PDF files. As of today we have{" "}
           <span>{numberWithCommas(count)}</span> eBooks for you to download for
           free. No annoying ads, no download limits, enjoy it and share the
-          love!
+          love! We have a total of <span>{kmbSeperator(vCount)}</span> visitors
+          on this website.
         </div>
         {books?.map((book) => (
           <div className="book" key={book._id}>
@@ -143,7 +163,10 @@ const Search = () => {
                 Uploader: <span>{book.user.name}</span>
               </div>
               <div className="bookButtons">
-                <button className="bookLink" onClick={() => read(book.bookUrl)}>
+                <button
+                  className="bookLink"
+                  onClick={() => read(book.bookUrl, book._id)}
+                >
                   Read
                 </button>
                 <a
