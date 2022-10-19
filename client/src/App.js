@@ -11,6 +11,7 @@ import Search from "./pages/search/Search";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditBook from "./pages/editBook/EditBook";
 import ManageUser from "./pages/manageUser/ManageUser";
+import Read from "./pages/read/Read";
 export default function App() {
   return (
     <div className="app">
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/dashboard/:id" element={<Dashboard />} />
           <Route path="/edit/:id" element={<EditBook />} />
           <Route path="/manage/:id" element={<ManageUser />} />
+          <Route path="/read" element={<Read />} />
         </Routes>
       </div>
       <Footer />

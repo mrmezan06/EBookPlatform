@@ -9,6 +9,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import "./search.css";
 import numberWithCommas from "../../utils/commaSeperated";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -24,6 +25,12 @@ const Search = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const navigate = useNavigate();
+  const read = (url) => {
+    const key = url.split("/")[5];
+    navigate(`/read?key=${key}`);
   };
 
   const handlePageChange = (event, page) => {
@@ -115,9 +122,9 @@ const Search = () => {
                 Uploader: <span>{book.user.name}</span>
               </div>
               <div className="bookButtons">
-                <a className="bookLink" href={book.bookUrl}>
+                <button className="bookLink" onClick={() => read(book.bookUrl)}>
                   Read
-                </a>
+                </button>
                 <a
                   className="bookLink"
                   href={book.bookUrl}

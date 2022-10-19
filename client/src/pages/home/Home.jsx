@@ -4,7 +4,7 @@ import "./home.css";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Pagination, Box } from "@mui/material";
 
 import { formatDistanceToNow, parseISO } from "date-fns";
@@ -24,6 +24,12 @@ const Home = () => {
   const itemsPerPage = 6;
 
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const read = (url) => {
+    const key = url.split("/")[5];
+    navigate(`/read?key=${key}`);
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -117,9 +123,9 @@ const Home = () => {
               <span>{formatDistanceToNow(parseISO(book.createdAt))} ago</span>
             </div>
             <div className="bookButtons">
-              <a className="bookLink" href={book.bookUrl}>
+              <button className="bookLink" onClick={() => read(book.bookUrl)}>
                 Read
-              </a>
+              </button>
               <a
                 className="bookLink"
                 href={book.bookUrl}
