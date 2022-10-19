@@ -48,12 +48,14 @@ img {
   font-size: 30px;
   font-weight: bold;
   color: rgb(2, 85, 85);
+  text-align: center;
 }
 
 .bookDesc {
   font-size: 18px;
-  text-align: center;
+  text-align: justify;
   color: rgb(2, 85, 85);
+  margin: 0 20px;
 }
 
 .bookAuthor {

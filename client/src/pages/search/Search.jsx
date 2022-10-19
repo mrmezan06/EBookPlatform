@@ -62,8 +62,25 @@ const Search = () => {
     setOpen(false);
   };
 
+  const [ftitle, setFtitle] = useState(true);
+
   useEffect(() => {
     fetchBooks();
+
+    if (window.innerWidth < 1024) {
+      setFtitle(false);
+    } else {
+      setFtitle(true);
+    }
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setFtitle(false);
+      } else {
+        setFtitle(true);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
     // eslint-disable-next-line
   }, [searchTerm, pages]);
 
@@ -106,12 +123,16 @@ const Search = () => {
             </div>
             <div className="bookInfo">
               <div className="bookTitle">
-                {book.title.length > 27
+                {ftitle
+                  ? book.title
+                  : book.title.length > 27
                   ? book.title.slice(0, 24).concat("...")
                   : book.title}
               </div>
               <div className="bookDesc">
-                {book.description.length > 60
+                {ftitle
+                  ? book.description
+                  : book.description.length > 60
                   ? book.description.slice(0, 60).concat("...")
                   : book.description}
               </div>
