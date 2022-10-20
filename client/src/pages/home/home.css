@@ -119,6 +119,7 @@ img {
   font-size: 20px;
   font-weight: 300;
   color: rgb(2, 85, 85);
+  text-align: justify;
 }
 
 .totalBooks span {
