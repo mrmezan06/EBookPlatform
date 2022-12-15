@@ -2,13 +2,13 @@
 
 - [x] Author: [Mejanur Rahman](https://www.github.com/mrmezan06)
 
-- [x] Version: 1.0.0
+- [x] Version: 1.1.0
 
 - [x] License: MIT
 
 ## Description
 
-This is a simple web application that allows users to search for books and add them to their reading list. The application uses the Google Books API to search for books and the MongoDB database to store the reading list. The application is built using the MERN stack. The application is deployed on Heroku. The application is live at [https://ocean-book.herokuapp.com/](https://ocean-book.herokuapp.com/).
+This is a simple web application that allows users to search for books and add them to their reading list. The application uses the Google Books API to search for books and the MongoDB database to store the reading list. The application is built using the MERN stack. The application is deployed on Heroku. The application is live at [https://ocean-book.cyclic.app/](https://ocean-book.cyclic.app/).
 
 ## Table of Contents
 
