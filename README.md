@@ -8,7 +8,7 @@
 
 ## Description
 
-This is a simple web application that allows users to search for books and add them to their reading list. The application uses the Google Books API to search for books and the MongoDB database to store the reading list. The application is built using the MERN stack. The application is deployed on Heroku. The application is live at [https://ocean-book.cyclic.app/](https://ocean-book.cyclic.app/).
+This is a simple web application that allows users to search for books and add them to their reading list. The application uses the Google Books API to search for books and the MongoDB database to store the reading list. The application is built using the MERN stack. The application is deployed on Cyclic.sh. The application is live at [https://ocean-book.cyclic.app/](https://ocean-book.cyclic.app/).
 
 ## Table of Contents
 
